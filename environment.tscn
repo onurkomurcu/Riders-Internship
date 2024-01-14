@@ -1,6 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctgukwkoj3pjm"]
+[gd_scene load_steps=14 format=3 uid="uid://ctgukwkoj3pjm"]
 
-[ext_resource type="PackedScene" uid="uid://dtx4lqf2otojk" path="res://player.tscn" id="1_pa6ri"]
+[ext_resource type="PackedScene" uid="uid://dm4h7te2n6vsw" path="res://scenes/skittle_pin.tscn" id="1_3h28a"]
+[ext_resource type="PackedScene" uid="uid://dtx4lqf2otojk" path="res://scenes/player.tscn" id="1_pa6ri"]
+[ext_resource type="Texture2D" uid="uid://b5qcqenyle3qf" path="res://textures/floor_texture.jpg" id="1_wd1jx"]
+[ext_resource type="Script" path="res://scripts/camera_script.gd" id="2_yspo0"]
+[ext_resource type="PackedScene" uid="uid://vdrej50mxc8i" path="res://scenes/user_interface.tscn" id="5_xu64c"]
+[ext_resource type="Script" path="res://scripts/score_counter.gd" id="6_clbn6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwppj"]
 sky_horizon_color = Color(0.64625, 0.655657, 0.670833, 1)
@@ -16,13 +21,30 @@ sky = SubResource("Sky_d4h2w")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_u8irl"]
-size = Vector2(10, 10)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1fwx"]
+albedo_texture = ExtResource("1_wd1jx")
+uv1_scale = Vector3(1, 5, 1)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ky1b1"]
-data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+[sub_resource type="PlaneMesh" id="PlaneMesh_u8irl"]
+uv2_padding = 2.03
+size = Vector2(3, 27.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_torj2"]
+data = PackedVector3Array(1.5, 0, 13.75, -1.5, 0, 13.75, 1.5, 0, -13.75, -1.5, 0, 13.75, -1.5, 0, -13.75, 1.5, 0, -13.75)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b7bdr"]
 
 [node name="Environment" type="Node3D"]
+
+[node name="Skittle Pin2" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000497745, 0.25, -12.4378)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin1" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.342109, 0.25, -13.003)
+mass = 0.1
+gravity_scale = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_flmby")
@@ -32,16 +54,64 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419286, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.760091, 9.7336)
+fov = 102.3
+script = ExtResource("2_yspo0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0126876, 0, 0.0014782)
+material_override = SubResource("StandardMaterial3D_n1fwx")
 mesh = SubResource("PlaneMesh_u8irl")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_ky1b1")
+shape = SubResource("ConcavePolygonShape3D_torj2")
 
 [node name="Player" parent="." instance=ExtResource("1_pa6ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.905786, -1.27616)
-linear_damp = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018, 0.175, 8.555)
+axis_lock_linear_y = false
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_b7bdr")
+
+[node name="Skittle Pin3" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.398, 0.25, -12.9899)
+
+[node name="Skittle Pin4" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.25, -11.5008)
+
+[node name="Skittle Pin5" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28655, 0.25, -13.0108)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin6" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1893, 0.25, -13.0275)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin7" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.394059, 0.25, -11.9193)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin8" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.342109, 0.25, -11.9161)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin9" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.876669, 0.25, -12.4331)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Skittle Pin10" parent="." instance=ExtResource("1_3h28a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841587, 0.25, -12.4331)
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Score" parent="." instance=ExtResource("5_xu64c")]
+offset_right = 166.0
+offset_bottom = 93.0
+text = ""
+script = ExtResource("6_clbn6")

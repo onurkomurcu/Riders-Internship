@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://vdrej50mxc8i"]
+
+[sub_resource type="Theme" id="Theme_nypkb"]
+default_base_scale = 0.11
+default_font_size = 39
+
+[node name="Score" type="Label"]
+offset_left = 25.0
+offset_top = 20.0
+offset_right = 171.0
+offset_bottom = 74.0
+theme = SubResource("Theme_nypkb")
+text = "Score: 0"

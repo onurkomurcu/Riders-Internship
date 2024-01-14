@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm4h7te2n6vsw"]
+
+[ext_resource type="Texture2D" uid="uid://brj6y58vn23jv" path="res://textures/skittle_pin_texture.png" id="1_3ekf3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yvcpo"]
+height = 1.70214
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bm7hy"]
+albedo_texture = ExtResource("1_3ekf3")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g3xd4"]
+
+[node name="Skittle Pin" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.00039959, -0.00152618, 0.000731707)
+shape = SubResource("CapsuleShape3D_yvcpo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.00039959, -0.00152618, 0.000731707)
+material_override = SubResource("StandardMaterial3D_bm7hy")
+mesh = SubResource("CapsuleMesh_g3xd4")

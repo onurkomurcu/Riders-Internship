@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtx4lqf2otojk"]
+
+[ext_resource type="Script" path="res://scripts/ball_script.gd" id="1_k1phw"]
+[ext_resource type="Texture2D" uid="uid://ccnlv82qlddct" path="res://textures/bowling_ball_texture.png" id="2_yerpc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvcku"]
+albedo_texture = ExtResource("2_yerpc")
+
+[sub_resource type="SphereMesh" id="SphereMesh_7qn2u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qmpmu"]
+radius = 0.18
+
+[node name="Player" type="RigidBody3D"]
+axis_lock_linear_y = true
+script = ExtResource("1_k1phw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_fvcku")
+mesh = SubResource("SphereMesh_7qn2u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_qmpmu")
